@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'GET /users/:id - Not Found'
+method: GET
+url: 'http://localhost:3000/users/9999'
+order: 3000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 404", function () {
+          pm.response.to.have.status(404);
+      });
+
+      pm.test("Response has error property", function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('error');
+      });

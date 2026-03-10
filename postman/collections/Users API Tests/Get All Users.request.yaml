@@ -1,0 +1,22 @@
+$kind: http-request
+name: Get All Users
+method: GET
+url: '{{base_url}}/users'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", function () {
+        pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is an array", function () {
+        const body = pm.response.json();
+        pm.expect(body).to.be.an('array');
+      });
+
+      pm.test("Response has at least one user", function () {
+        const body = pm.response.json();
+        pm.expect(body.length).to.be.greaterThan(0);
+      });

@@ -1,0 +1,6 @@
+$kind: collection
+name: Users API Tests
+description: Tests for the Express.js Users API running on localhost:3000
+variables:
+  - key: base_url
+    value: 'http://localhost:3000'

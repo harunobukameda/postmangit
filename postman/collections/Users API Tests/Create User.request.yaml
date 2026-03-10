@@ -1,0 +1,34 @@
+$kind: http-request
+name: Create User
+method: POST
+url: '{{base_url}}/users'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Charlie",
+      "email": "charlie@example.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", function () {
+        pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has id, name, email fields", function () {
+        const body = pm.response.json();
+        pm.expect(body).to.have.property('id');
+        pm.expect(body).to.have.property('name');
+        pm.expect(body).to.have.property('email');
+      });
+
+      pm.test("Response name equals Charlie", function () {
+        const body = pm.response.json();
+        pm.expect(body.name).to.eql('Charlie');
+      });

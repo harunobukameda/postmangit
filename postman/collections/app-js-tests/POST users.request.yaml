@@ -1,0 +1,37 @@
+$kind: http-request
+name: 'POST /users'
+method: POST
+url: 'http://localhost:3000/users'
+order: 4000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Charlie",
+      "email": "charlie@example.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has id (number)", function () {
+          const json = pm.response.json();
+          pm.expect(json.id).to.be.a('number');
+      });
+
+      pm.test('Response has name = "Charlie"', function () {
+          const json = pm.response.json();
+          pm.expect(json.name).to.eql('Charlie');
+      });
+
+      pm.test('Response has email = "charlie@example.com"', function () {
+          const json = pm.response.json();
+          pm.expect(json.email).to.eql('charlie@example.com');
+      });
