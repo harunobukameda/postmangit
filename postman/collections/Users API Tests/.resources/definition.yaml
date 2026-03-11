@@ -1,4 +1,5 @@
 $kind: collection
+id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 name: Users API Tests
 description: Tests for the Express.js Users API running on localhost:3000
 variables:
