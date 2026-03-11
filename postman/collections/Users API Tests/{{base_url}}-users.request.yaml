@@ -1,0 +1,5 @@
+$kind: http-request
+name: "{{base_url}}/users"
+url: "{{base_url}}/users"
+method: GET
+order: 4343455445680269
